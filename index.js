@@ -35,44 +35,43 @@ app.use(
 );
 // Deleting Expired Session
 
-setInterval(() => {
-  console.log("Deleting Expired Sessions");
-  const folderPath = "./sessions";
-  const d = new Date();
+// setInterval(() => {
+//   const folderPath = "./sessions";
+//   const d = new Date();
 
-  fs.readdir(folderPath, (err, files) => {
-    if (err) {
-      console.error("Error reading folder:", err);
-      return;
-    }
+//   fs.readdir(folderPath, (err, files) => {
+//     if (err) {
+//       console.error("Error reading folder:", err);
+//       return;
+//     }
 
-    files.forEach((file) => {
-      if (file !== ".gitkeep")
-        fs.readFile(`${folderPath}/${file}`, "utf8", (err, data) => {
-          if (err) {
-            console.error("Error reading file:", err);
-            return;
-          }
-          // Parse the JSON data
-          try {
-            const jsonData = JSON.parse(data);
-            if (jsonData.expired_at < d.getTime()) {
-              fs.unlink(`${folderPath}/${file}`, (err) => {
-                if (err) {
-                  console.error("Error deleting file:", err);
-                  return;
-                }
+//     files.forEach((file) => {
+//       if (file !== ".gitkeep")
+//         fs.readFile(`${folderPath}/${file}`, "utf8", (err, data) => {
+//           if (err) {
+//             console.error("Error reading file:", err);
+//             return;
+//           }
+//           // Parse the JSON data
+//           try {
+//             const jsonData = JSON.parse(data);
+//             if (jsonData.expired_at < d.getTime()) {
+//               fs.unlink(`${folderPath}/${file}`, (err) => {
+//                 if (err) {
+//                   console.error("Error deleting file:", err);
+//                   return;
+//                 }
 
-                console.log("File deleted successfully");
-              });
-            }
-          } catch (error) {
-            console.error("Error parsing JSON:", error);
-          }
-        });
-    });
-  });
-}, 3000);
+//                 console.log("File deleted successfully");
+//               });
+//             }
+//           } catch (error) {
+//             console.error("Error parsing JSON:", error);
+//           }
+//         });
+//     });
+//   });
+// }, 3000);
 
 // ====================== ENDPOINTS ====================== //
 
